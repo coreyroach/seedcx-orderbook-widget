@@ -1,0 +1,20 @@
+#Orderbook {
+    width: 300px;
+    padding: 0 30px;
+    border: 1px solid black;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    font-size: 12px;
+}
+
+ul > li {
+    display: flex;
+}
+
+ul > li > span {
+    width: 50%;
+}

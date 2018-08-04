@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import './styles.css';
 
 import { connectToSocket } from './actions';
 
@@ -9,15 +10,6 @@ class Orderbook extends Component {
   componentWillMount() {
     this.props.connectToSocket();
   }
-
-  componentWillReceiveProps(props) {
-    console.log('componentWillReceiveProps', props);
-  }
-
-  // shouldComponentUpdate(prevState, nextState) {
-  //   console.log('shouldComponentUpdate', prevState, nextState);
-  //   return true;
-  // };
 
   aggregateByType(type, limit) {
     if (type.length <= limit) return type;
@@ -42,24 +34,16 @@ class Orderbook extends Component {
   }
 
   render() {
-    const asksList = this.aggregateByType(this.props.asks, 20).map((ask, idx) => {
-      return <li key={idx}>{ask[0]} ::: {ask[1]}</li>
+    const asksList = this.aggregateByType(this.props.asks, 50).map((ask, idx) => {
+      return <li key={idx}><span>{ask[0]}</span><span>{ask[1]}</span></li>
     }).reverse();
 
-    const bidsList = this.aggregateByType(this.props.bids, 20).map((bid, idx) => {
-      return <li key={idx}>{bid[0]} ::: {bid[1]}</li>
+    const bidsList = this.aggregateByType(this.props.bids, 50).map((bid, idx) => {
+      return <li key={idx}><span>{bid[0]}</span><span>{bid[1]}</span></li>
     });
 
-    // const asksList = this.props.asks.slice(0, 50).map((ask, idx) => {
-    //   return <li key={idx}>{ask[0]} ::: {ask[1]}</li>;
-    // });
-    
-    // const bidsList = this.props.bids.slice(0, 50).map((bid, idx) => {
-    //   return <li key={idx}>{bid[0]} ::: {bid[1]}</li>;
-    // });
-
     return (
-      <div>
+      <div id="Orderbook">
         <ul>{asksList}</ul>
         <ul>{bidsList}</ul>
       </div>
