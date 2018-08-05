@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
       };
 
     case L2_UPDATE:
-      let [side, price, size] = [...action.payload];
+      let [side, price, size] = action.payload;
       price = parseFloat(price) + '';
 
       if (side === 'sell') {

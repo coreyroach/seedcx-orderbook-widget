@@ -44,8 +44,20 @@ class Orderbook extends Component {
 
     return (
       <div id="Orderbook">
-        <ul>{asksList}</ul>
-        <ul>{bidsList}</ul>
+        <header>
+          <h3>BTC-USD</h3>
+          <div class="list-head">
+            <p>Price (USD)</p>
+            <p>Market Size</p>
+          </div>
+        </header>
+        <div className="content">
+          <ul className="ask-list">{asksList}</ul>
+          <div className="spread">
+            <p>Spread</p>
+          </div>
+          <ul className="bid-list">{bidsList}</ul>
+        </div>
       </div>
     );
   }

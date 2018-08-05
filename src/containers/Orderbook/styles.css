@@ -1,7 +1,47 @@
 #Orderbook {
+    position: relative;
     width: 300px;
+    height: calc(100vh - 30px);
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: white;
+}
+
+header > h3 {
+    margin: 0;
+    font-size: 1em;
+    line-height: 1em;
+    padding: 1em 0;
+}
+
+header > .list-head {
+    display: flex;
+    font-size: 0.8em;
+    padding: 0.8em 30px;
+    text-align: left;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+header > .list-head > p {
+    margin: 0;
+    width: 50%;
+}
+
+.content {
+    position: absolute;
+    top: 87px;
+    bottom: 0;
+    width: 100%;
     padding: 0 30px;
-    border: 1px solid black;
+    overflow: auto;
 }
 
 ul {
@@ -17,4 +57,25 @@ ul > li {
 
 ul > li > span {
     width: 50%;
+}
+
+.ask-list {
+    color: red;
+}
+
+.bid-list {
+    color: green;
+}
+
+.spread {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 0.8em;
+    margin-left: -30px;
+    margin-right: -30px;
+}
+
+.spread > p {
+    margin: 0;
+    font-size: 0.8em;
 }
