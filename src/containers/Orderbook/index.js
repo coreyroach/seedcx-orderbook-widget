@@ -46,7 +46,7 @@ class Orderbook extends Component {
       <div id="Orderbook">
         <header>
           <h3>BTC-USD</h3>
-          <div class="list-head">
+          <div className="list-head">
             <p>Price (USD)</p>
             <p>Market Size</p>
           </div>

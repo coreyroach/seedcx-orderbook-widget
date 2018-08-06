@@ -19,53 +19,31 @@ export default function(state = initialState, action) {
       let [side, price, size] = action.payload;
       price = parseFloat(price) + '';
 
-      if (side === 'sell') {
-        const asks = [...state.asks];
-        const index = asks.findIndex(item => {
+
+      const bucket = side === 'sell' ? [...state.asks] : [...state.bids];
+      const index = bucket.findIndex(item => {
+        if (side === 'sell') {
           return parseFloat(item[0]) >= parseFloat(price);
-        });
-
-        if (asks[index] && asks[index][0] === price) {
-          if (size === '0') {
-            asks.splice(index, 1);
-          } else {
-            asks[index][1] = size;
-          }
-        } else {
-          if (size !== '0') {
-            console.log([asks[index][0], price], index);
-            asks.splice(index, 0, [price, size]);
-          }
         }
+        return parseFloat(item[0]) <= parseFloat(price);
+      });
 
-        return {
-          ...state,
-          asks
+      if (bucket[index] && bucket[index][0] === price) {
+        if (size === '0') {
+          bucket.splice(index, 1);
+        } else {
+          bucket[index][1] = size;
+        }
+      } else {
+        if (size !== '0') {
+          bucket.splice(index, 0, [price, size]);
         }
       }
 
-      if (side === 'buy') {
-        const bids = [...state.bids];
-        const index = bids.findIndex(item => {
-          return item[0] <= price;
-        });
-
-        if (bids[index] && bids[index][0] === price) {
-          if (size === '0') {
-            bids.splice(index, 1);
-          } else {
-            bids[index][1] = size;
-          }
-        } else {
-          if (size !== '0') {
-            bids.splice(index, 0, [price, size]);
-          }
-        }
-
-        return {
-          ...state,
-          bids
-        }
+      return {
+        ...state,
+        asks: side === 'sell' ? bucket : state.asks,
+        bids: side !== 'sell' ? bucket : state.bids,
       }
 
       return state;
