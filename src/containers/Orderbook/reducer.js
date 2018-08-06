@@ -1,8 +1,10 @@
-import { SNAPSHOT, L2_UPDATE } from './types';
+import { SNAPSHOT, L2_UPDATE, TICKER } from './types';
 
 const initialState = {
   asks: [],
-  bids: []
+  bids: [],
+  price: '0',
+  open: '0'
 };
 
 export default function(state = initialState, action) {
@@ -16,6 +18,7 @@ export default function(state = initialState, action) {
       };
 
     case L2_UPDATE:
+      console.log('L2_UPDATE');
       let [side, price, size] = action.payload;
       price = parseFloat(price) + '';
 
@@ -46,7 +49,12 @@ export default function(state = initialState, action) {
         bids: side !== 'sell' ? bucket : state.bids,
       }
 
-      return state;
+    case TICKER :
+      return {
+        ...state,
+        price: action.payload.price,
+        open: action.payload.open_24h,
+      };
 
     default:
       return state;

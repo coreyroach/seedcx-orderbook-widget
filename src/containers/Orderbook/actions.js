@@ -1,4 +1,4 @@
-import { L2_UPDATE, SNAPSHOT } from './types';
+import { L2_UPDATE, SNAPSHOT, TICKER } from './types';
 
 export const connectToSocket = () => dispatch => {
   const socket = new WebSocket('wss://ws-feed.pro.coinbase.com');
@@ -23,9 +23,16 @@ export const connectToSocket = () => dispatch => {
           payload: data.changes[0]
         });
         break;
+
+      case 'ticker' :
+        dispatch({
+          type: TICKER,
+          payload: data
+        })
+        break;
       
       default :
-        console.log(data);
+        // console.log(data);
     }
   });
 
@@ -37,13 +44,7 @@ export const connectToSocket = () => dispatch => {
       ],
       channels: [
         "level2",
-        // "heartbeat",
-        // {
-        //   name: "ticker",
-        //   product_ids: [
-        //     "BTC-USD"
-        //   ]
-        // }
+        "ticker",
       ]
     });
     socket.send(subscribe);

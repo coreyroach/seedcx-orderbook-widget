@@ -8,3 +8,11 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
