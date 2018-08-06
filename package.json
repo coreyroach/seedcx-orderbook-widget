@@ -2,6 +2,7 @@
   "name": "seedcx-orderbook-widget",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://coreyroach.github.io/seedcx-orderbook-widget",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "react": "^16.4.2",
