@@ -4,7 +4,8 @@ const initialState = {
   asks: [],
   bids: [],
   price: '0',
-  open: '0'
+  open: '0',
+  volume: '0',
 };
 
 export default function(state = initialState, action) {
@@ -53,6 +54,7 @@ export default function(state = initialState, action) {
         ...state,
         price: action.payload.price,
         open: action.payload.open_24h,
+        volume: action.payload.volume_24h,
       };
 
     default:

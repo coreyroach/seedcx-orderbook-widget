@@ -60,10 +60,28 @@ ul {
 
 ul > li {
     display: flex;
+    position: relative;
 }
 
 ul > li > span {
     width: 50%;
+}
+
+ul > li > span.bar {
+    position: absolute;
+    left: -30px;
+    top: 0;
+    width: calc(100% + 60px);
+    height: 100%;
+    z-index: -1;
+}
+
+ul > li > span.bar > .inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #CCC;
+    height: 100%;
 }
 
 .ask-list {

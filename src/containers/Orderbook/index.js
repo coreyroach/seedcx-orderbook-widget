@@ -64,6 +64,14 @@ class Orderbook extends Component {
     return <span className={c}>{(perc * 100).toFixed(2)}&#37;</span>;
   }
 
+  calculateBar(level) {
+    if (level[1] === '0' || this.props.volume === '0') return;
+    const perc = level[1] / this.props.volume;
+    return {
+      width: `${perc * 100}%`
+    }
+  }
+
   renderBuckets(asks, bids) {
     if (!this.state.hasConnection) {
       return <span className="loading">Loading...</span>
@@ -81,12 +89,22 @@ class Orderbook extends Component {
 
   render() {
     const asksList = this.aggregateByType(this.props.asks, 50).map((ask, idx) => {
-      return <li key={idx}><span>{parseFloat(ask[0]).toFixed(2)}</span><span>{parseFloat(ask[1]).toFixed(5)}</span></li>
-    }).reverse();
+      return (
+        <li key={idx}>
+          <span className="bar"><span style={this.calculateBar(ask)} className="inner"></span></span>
+          <span>{parseFloat(ask[0]).toFixed(2)}</span>
+          <span>{parseFloat(ask[1]).toFixed(5)}</span>
+        </li>);
+      }).reverse();
 
     const bidsList = this.aggregateByType(this.props.bids, 50).map((bid, idx) => {
-      return <li key={idx}><span>{parseFloat(bid[0]).toFixed(2)}</span><span>{parseFloat(bid[1]).toFixed(5)}</span></li>
-    });
+      return (
+        <li key={idx}>
+          <span className="bar"><span style={this.calculateBar(bid)} className="inner"></span></span>
+          <span>{parseFloat(bid[0]).toFixed(2)}</span>
+          <span>{parseFloat(bid[1]).toFixed(5)}</span>
+        </li>);
+      });
 
     return (
       <div id="Orderbook">
@@ -111,6 +129,7 @@ Orderbook.propTypes = {
   bids: PropTypes.array,
   price: PropTypes.string,
   open: PropTypes.string,
+  volume: PropTypes.string,
 };
 
 const mapStateToProps = debounce(state => ({
@@ -118,6 +137,7 @@ const mapStateToProps = debounce(state => ({
   bids: state.orderbook.bids,
   price: state.orderbook.price,
   open: state.orderbook.open,
+  volume: state.orderbook.volume,
 }), 250, { leading: true, maxWait: 250 });
 
 export default connect(mapStateToProps, { connectToSocket })(Orderbook);
