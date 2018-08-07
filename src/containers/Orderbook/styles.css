@@ -44,6 +44,13 @@ header > .list-head > p {
     overflow: auto;
 }
 
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 ul {
     list-style: none;
     padding: 0;

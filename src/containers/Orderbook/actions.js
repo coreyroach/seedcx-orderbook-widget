@@ -3,11 +3,11 @@ import { L2_UPDATE, SNAPSHOT, TICKER } from './types';
 export const connectToSocket = () => dispatch => {
   const socket = new WebSocket('wss://ws-feed.pro.coinbase.com');
 
-  socket.addEventListener('message', (event) => {
+  const handleMessage = (event) => {
     const data = JSON.parse(event.data);
-    
+
     switch (data.type) {
-      case 'snapshot' :
+      case 'snapshot':
         dispatch({
           type: SNAPSHOT,
           payload: {
@@ -16,27 +16,29 @@ export const connectToSocket = () => dispatch => {
           }
         });
         break;
-      
-      case 'l2update' :
+
+      case 'l2update':
         dispatch({
           type: L2_UPDATE,
           payload: data.changes[0]
         });
         break;
 
-      case 'ticker' :
+      case 'ticker':
         dispatch({
           type: TICKER,
           payload: data
         })
         break;
-      
-      default :
-        // console.log(data);
-    }
-  });
 
-  socket.addEventListener('open', function (event) {
+      default:
+      // console.log(data);
+    }
+  };
+
+  socket.addEventListener('message', handleMessage);
+
+  socket.addEventListener('open', () => {
     var subscribe = JSON.stringify({
       type: "subscribe",
       product_ids: [
@@ -49,7 +51,7 @@ export const connectToSocket = () => dispatch => {
     });
     socket.send(subscribe);
 
-    socket.addEventListener('close', function (event) {
+    socket.addEventListener('close', () => {
       console.log('Client disconnected.');
     });
   });

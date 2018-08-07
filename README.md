@@ -1,6 +1,6 @@
 # Seed CX Orderbook Widget
 
-Build using `react-create-app`.
+Built using `react-create-app`.
 
 ### Install
 ```bash
